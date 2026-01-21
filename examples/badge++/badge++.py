@@ -17,7 +17,7 @@ NAME_HEIGHT = 45
 LASTNAME_HEIGHT = 30
 DETAILS_HEIGHT = 18
 LINE_SPACING = 2
-DETAILS_TEXT_SIZE = 2
+DETAILS_TEXT_SIZE = 1
 
 BADGE_PATH = "/badges/badge.txt"
 
@@ -73,13 +73,9 @@ def draw_badge():
     # Draw the background
     try:
         target_image = BADGE_IMAGES[state["picture_idx"]]
-        image_size = extract_image_width_from_filename(target_image)
+        image_size = 128  # Fixed size to 128 pixels
         TEXT_WIDTH = WIDTH - LEFT_PADDING - image_size
 
-        # If no image was pulled from the name, it must be the background.
-        if(image_size == 0):
-            image_size = WIDTH
-        
         image_path = f"/badges/{target_image}"
         print(image_path)
         if image_path.endswith(".png"):
@@ -129,7 +125,6 @@ def draw_badge():
     display.text(title, LEFT_PADDING, HEIGHT - (DETAILS_HEIGHT * 2) - LINE_SPACING - 2, TEXT_WIDTH, DETAILS_TEXT_SIZE * size_adjustment)
 
     # Show pronouns if given, otherwise show any handle or blank if neither
-    # if pronouns exists and is not empty, show it
     if pronouns and pronouns.strip() != "":
         display.text(pronouns, LEFT_PADDING, HEIGHT - DETAILS_HEIGHT, TEXT_WIDTH, DETAILS_TEXT_SIZE * size_adjustment)
     else:
